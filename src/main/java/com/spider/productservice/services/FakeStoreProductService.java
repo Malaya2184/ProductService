@@ -3,9 +3,13 @@ package com.spider.productservice.services;
 import com.spider.productservice.dtos.FakeStoreProductDto;
 import com.spider.productservice.models.Category;
 import com.spider.productservice.models.Product;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +34,41 @@ public class FakeStoreProductService implements ProductService{
         product.setCategory(category);
         return product;
     }
+    private List<Product> convertFakeStoreProductDtoListToProductList(FakeStoreProductDto[] fakeStoreProductDtoArr){
+        List<Product> productList = new ArrayList<>();
+        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtoArr) {
+            Product product = new Product();
+            product.setId(fakeStoreProductDto.getId());
+            product.setTitle(fakeStoreProductDto.getTitle());
+            product.setPrice(fakeStoreProductDto.getPrice());
+            // Assuming Category has a constructor that accepts id and title
+            Category category = new Category();
+            category.setTitle(fakeStoreProductDto.getTitle());
+            product.setCategory(category);
+            product.setDescription(fakeStoreProductDto.getDescription());
+            product.setImage(fakeStoreProductDto.getImage());
+            productList.add(product);
+        }
+        return productList;
+    }
+//    overloaded method of convertFakeStoreProductDtoListToProductList to receives arraylist as inpput
+    private List<Product> convertFakeStoreProductDtoListToProductList(ArrayList<FakeStoreProductDto> fakeStoreProductDtoList){
+        List<Product> productList = new ArrayList<>();
+        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtoList) {
+            Product product = new Product();
+            product.setId(fakeStoreProductDto.getId());
+            product.setTitle(fakeStoreProductDto.getTitle());
+            product.setPrice(fakeStoreProductDto.getPrice());
+            // Assuming Category has a constructor that accepts id and title
+            Category category = new Category();
+            category.setTitle(fakeStoreProductDto.getCategory());
+            product.setCategory(category);
+            product.setDescription(fakeStoreProductDto.getDescription());
+            product.setImage(fakeStoreProductDto.getImage());
+            productList.add(product);
+        }
+        return productList;
+    }
     @Override
     public Product getProductByid(Long id) {
         //        call the FakeStore API here to get the product with given ID here.
@@ -41,8 +80,27 @@ public class FakeStoreProductService implements ProductService{
         return null;
     }
 
+
     @Override
     public List<Product> getAllProducts() {
+        // To get the response in the form of array
+        FakeStoreProductDto[] response = restTemplate.getForObject(
+                "https://fakestoreapi.com/products",
+                FakeStoreProductDto[].class
+        );
+//        to get product in formof list
+/*        ResponseEntity<ArrayList<FakeStoreProductDto>> responseEntity =
+                restTemplate.exchange(
+                        "https://fakestoreapi.com/products",
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<ArrayList<FakeStoreProductDto>>() {}
+                );
+        ArrayList<FakeStoreProductDto> response = responseEntity.getBody();
+ */
+        if(response != null){
+            return convertFakeStoreProductDtoListToProductList(response);
+        }
         return null;
     }
 
