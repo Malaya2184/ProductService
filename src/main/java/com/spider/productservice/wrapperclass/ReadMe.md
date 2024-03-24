@@ -1,2 +1,0 @@
-- Here we created a package called wrapper class where we  are going to define custom wrapper class so that when the REST call will happen to hold the list of data we need some custom wrapper class
-- URL to understand RestTemplate and 3rd party API call - https://www.baeldung.com/spring-rest-template-list
