@@ -8,10 +8,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class FakeStoreProductController {
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    public FakeStoreProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -28,7 +28,8 @@ public class ProductController {
 
     @PostMapping
     public Product createProduct(@RequestBody Product product){
-        return new Product();
+
+        return null;
     }
 
     @PatchMapping("/{id}")
