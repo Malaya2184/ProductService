@@ -3,6 +3,7 @@ package com.spider.productservice.controllers;
 import com.spider.productservice.dtos.FakeStoreProductDto;
 import com.spider.productservice.models.Product;
 import com.spider.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class FakeStoreProductController {
     private final ProductService productService;
 
-    public FakeStoreProductController(ProductService productService) {
+    public FakeStoreProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
         this.productService = productService;
     }
 
