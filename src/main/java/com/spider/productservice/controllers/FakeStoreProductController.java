@@ -1,6 +1,6 @@
 package com.spider.productservice.controllers;
 
-import com.spider.productservice.dtos.ProductDto;
+import com.spider.productservice.dtos.FakeStoreProductDto;
 import com.spider.productservice.models.Product;
 import com.spider.productservice.services.ProductService;
 import org.springframework.web.bind.annotation.*;
@@ -29,18 +29,17 @@ public class FakeStoreProductController {
 
     @PostMapping
     public Product createProduct(@RequestBody Product product){
-
-        return null;
+        return productService.createProduct(product);
     }
 
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto){
-        return new Product();
+    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
+        return productService.updateProduct(id, product);
     }
 
     @PutMapping("/{id}")
-    public Product replaceProduct(@PathVariable Long id, @RequestBody ProductDto productDto){
-        return new Product();
+    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
+        return productService.replaceProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
