@@ -89,23 +89,33 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public Product updateProduct(Long id, Product product) {
         FakeStoreProductDto fakeStoreProductDto = convertProductToFakeStoreDto(product);
-        FakeStoreProductDto responseDto = restTemplate.patchForObject("https://fakestoreapi.com/products/"+id , fakeStoreProductDto, FakeStoreProductDto.class);
+        HttpEntity<FakeStoreProductDto> request = new HttpEntity<>(fakeStoreProductDto);
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
+                "https://fakestoreapi.com/products/" + id,
+                HttpMethod.PATCH,
+                request,
+                FakeStoreProductDto.class
+        );
+        FakeStoreProductDto responseDto = response.getBody();
         return convertFakeStoreProductDtoToProduct(responseDto);
     }
 
     @Override
     public Product replaceProduct(Long id, Product product) {
         FakeStoreProductDto fakeStoreProductDto = convertProductToFakeStoreDto(product);
+        HttpEntity<FakeStoreProductDto> request = new HttpEntity<>(fakeStoreProductDto);
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
-                "https://api.bookstore.com",
+                "https://fakestoreapi.com/products/" + id,
                 HttpMethod.PUT,
-                new HttpEntity<>(fakeStoreProductDto),
-                FakeStoreProductDto.class);
-        return convertFakeStoreProductDtoToProduct(response.getBody());
+                request,
+                FakeStoreProductDto.class
+        );
+        FakeStoreProductDto responseDto = response.getBody();
+        return convertFakeStoreProductDtoToProduct(responseDto);
     }
 
     @Override
     public void deleteProduct(Long id) {
-
+        restTemplate.delete("https://fakestoreapi.com/products/" + id);
     }
 }
