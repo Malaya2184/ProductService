@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("fakeStoreProductService") // explicitly named this bin so that can get this exact bean using @Qualifier anotation
 public class FakeStoreProductService implements ProductService{
     private final RestTemplate restTemplate;
 

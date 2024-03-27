@@ -4,6 +4,8 @@ import com.spider.productservice.dtos.FakeStoreProductDto;
 import com.spider.productservice.models.Product;
 import com.spider.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +20,12 @@ public class FakeStoreProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id){
-        return productService.getProductByid(id);
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id){
+        Product product = productService.getProductByid(id);
+        if(product != null){
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping
@@ -29,8 +35,13 @@ public class FakeStoreProductController {
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product){
-        return productService.createProduct(product);
+    public ResponseEntity<Product> createProduct(@RequestBody Product product){
+
+        Product productResponse = productService.createProduct(product);
+        if(productResponse != null){
+            return new ResponseEntity<>(productResponse, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @PatchMapping("/{id}")
