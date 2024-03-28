@@ -1,7 +1,8 @@
 package com.spider.productservice.controllers;
 
-import com.spider.productservice.dtos.FakeStoreProductDto;
+import com.spider.productservice.dtos.exceptionDto.FakeStoreSpecificExceptionDto;
 import com.spider.productservice.exceptions.ProductNotFoundException;
+import com.spider.productservice.exceptions.specificexcrption.FakeStoreSpecificException;
 import com.spider.productservice.models.Product;
 import com.spider.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,7 +52,7 @@ public class FakeStoreProductController {
         if(productResponse != null){
             return new ResponseEntity<>(productResponse, HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @PatchMapping("/{id}")
@@ -59,9 +60,24 @@ public class FakeStoreProductController {
         return productService.updateProduct(id, product);
     }
 
+    // Specific Exception for this controller so made it private
+    @ExceptionHandler(FakeStoreSpecificException.class)
+    private ResponseEntity<FakeStoreSpecificExceptionDto> handelSpecificException(FakeStoreSpecificException e){
+        FakeStoreSpecificExceptionDto fakeStoreSpecificExceptionDto = new FakeStoreSpecificExceptionDto();
+        fakeStoreSpecificExceptionDto.setMessage(e.getMessage());
+        fakeStoreSpecificExceptionDto.setName(e.getName());
+        return new ResponseEntity<>(fakeStoreSpecificExceptionDto, HttpStatus.BAD_REQUEST);
+    }
+
     @PutMapping("/{id}")
-    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
-        return productService.replaceProduct(id, product);
+    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) throws FakeStoreSpecificException{
+         Product response = productService.replaceProduct(id, product);
+//         make rsponse null to check wheather specific exception is working or not
+//         response = null;
+         if(response != null){
+             return response;
+         }
+        throw new FakeStoreSpecificException("Product not found , So can't replace it", "Product replacement failed exception");
     }
 
     @DeleteMapping("/{id}")
@@ -69,7 +85,7 @@ public class FakeStoreProductController {
 
     }
 
-    @GetMapping("/throughexception")
+    @GetMapping("/througharithemeticexception")
     public void throughArithmeticException(){
 //        the message will sent from here automatically catch by the Controller advice
         int x = 10/0;
