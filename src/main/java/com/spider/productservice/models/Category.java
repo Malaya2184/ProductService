@@ -12,8 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Category {
-    @Id
-    private long id;
+public class Category extends BaseModel {
+//    @Id
+//    private Long id;
     private String title;
 }

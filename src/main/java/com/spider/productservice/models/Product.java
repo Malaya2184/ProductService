@@ -13,9 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Product {
-    @Id
-    private long id;
+public class Product extends BaseModel {
+//    @Id
+//    private long id;
     private String title;
     private double price;
     @ManyToOne
