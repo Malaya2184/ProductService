@@ -28,10 +28,10 @@ public class FakeStoreProductController {
 //        try {
 //            throw new RuntimeException("Exception thrown from try catch block");
 //        }catch (RuntimeException e){
-//            System.out.println("Exception caught and handelled in try catch block");
+//            System.out.println("Exception caught and handled in try catch block");
 //        }
-/*         There might be seeveral type of exceptions we need to handle so we can't handle all
-           the exceptions insid econtrollers otherwise th redability will be affected so we can use controller advice to handle all the excepptions throwen by controller
+/*         There might be several type of exceptions we need to handle, so we can't handle all
+           the exceptions insid econtrollers otherwise th redability will be affected, so we can use controller advice to handle all the excepptions throwen by controller
 */
         if(product != null){
             return new ResponseEntity<>(product, HttpStatus.OK);
@@ -82,12 +82,12 @@ public class FakeStoreProductController {
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id){
-
+        productService.deleteProduct(id);
     }
 
     @GetMapping("/througharithemeticexception")
     public void throughArithmeticException(){
-//        the message will sent from here automatically catch by the Controller advice
-        int x = 10/0;
+//        the message will send from here automatically catch by the Controller advice
+            int x = 10/0;
     }
 }

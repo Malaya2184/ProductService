@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "products")
 public class Product extends BaseModel {
 //    @Id
 //    private long id;
