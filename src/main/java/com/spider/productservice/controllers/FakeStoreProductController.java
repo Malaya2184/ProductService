@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
-public class FakeStoreProductController {
+@RequestMapping("/fakestore/products")
+public class FakeStoreProductController implements ProductController {
     private final ProductService productService;
 
     public FakeStoreProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
