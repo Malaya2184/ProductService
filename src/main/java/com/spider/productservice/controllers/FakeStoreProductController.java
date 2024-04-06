@@ -3,8 +3,9 @@ package com.spider.productservice.controllers;
 import com.spider.productservice.dtos.exceptionDto.FakeStoreSpecificExceptionDto;
 import com.spider.productservice.exceptions.ProductNotFoundException;
 import com.spider.productservice.exceptions.specificexcrption.FakeStoreSpecificException;
-import com.spider.productservice.models.Product;
+import com.spider.productservice.models.FakeStoreProduct;
 import com.spider.productservice.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/fakestore/products")
-public class FakeStoreProductController implements ProductController {
+public class FakeStoreProductController implements ProductController<FakeStoreProduct> {
     private final ProductService productService;
 
+    @Autowired
     public FakeStoreProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
         this.productService = productService;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
-        Product product = productService.getProductByid(id);
+    public ResponseEntity<FakeStoreProduct> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
+        FakeStoreProduct product = (FakeStoreProduct) productService.getProductByid(id);
 //        throw new RuntimeException("Throwing run time exception");
 //        try {
 //            throw new RuntimeException("Exception thrown from try catch block");
@@ -36,19 +38,19 @@ public class FakeStoreProductController implements ProductController {
         if(product != null){
             return new ResponseEntity<>(product, HttpStatus.OK);
         }
-        throw new ProductNotFoundException("Product  Not found for the product id : "+id, id);
+        throw new ProductNotFoundException("FakeStoreProduct  Not found for the product id : "+id, id);
     }
 
     @GetMapping
-    public List<Product> getAllProducts(){
+    public List<FakeStoreProduct> getAllProducts(){
 
         return productService.getAllProducts();
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product){
+    public ResponseEntity<FakeStoreProduct> createProduct(@RequestBody FakeStoreProduct product){
 
-        Product productResponse = productService.createProduct(product);
+        FakeStoreProduct productResponse = (FakeStoreProduct) productService.createProduct(product);
         if(productResponse != null){
             return new ResponseEntity<>(productResponse, HttpStatus.OK);
         }
@@ -56,8 +58,8 @@ public class FakeStoreProductController implements ProductController {
     }
 
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
-        return productService.updateProduct(id, product);
+    public FakeStoreProduct updateProduct(@PathVariable("id") Long id, @RequestBody FakeStoreProduct product){
+        return (FakeStoreProduct) productService.updateProduct(id, product);
     }
 
     // Specific Exception for this controller so made it private
@@ -70,14 +72,14 @@ public class FakeStoreProductController implements ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) throws FakeStoreSpecificException{
-         Product response = productService.replaceProduct(id, product);
+    public FakeStoreProduct replaceProduct(@PathVariable("id") Long id, @RequestBody FakeStoreProduct product) throws FakeStoreSpecificException{
+         FakeStoreProduct response = (FakeStoreProduct) productService.replaceProduct(id, product);
 //         make rsponse null to check wheather specific exception is working or not
 //         response = null;
          if(response != null){
              return response;
          }
-        throw new FakeStoreSpecificException("Product not found , So can't replace it", "Product replacement failed exception");
+        throw new FakeStoreSpecificException("FakeStoreProduct not found , So can't replace it", "FakeStoreProduct replacement failed exception");
     }
 
     @DeleteMapping("/{id}")

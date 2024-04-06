@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/self/products")
-public class SelfProductController implements ProductController{
+public class SelfProductController implements ProductController<Product>{
     private SelfProductService productService;
 
     public SelfProductController(@Qualifier("selfProductService") SelfProductService productService) {

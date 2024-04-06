@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SelfProductService implements ProductService{
+public class SelfProductService implements ProductService<Product>{
     private final ProductRepository productRepository;
     private final Categoryrepository categoryrepository;
 

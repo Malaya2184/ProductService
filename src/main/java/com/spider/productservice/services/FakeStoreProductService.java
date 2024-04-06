@@ -1,8 +1,9 @@
 package com.spider.productservice.services;
 
 import com.spider.productservice.dtos.FakeStoreProductDto;
-import com.spider.productservice.models.Category;
-import com.spider.productservice.models.Product;
+import com.spider.productservice.models.FakeStoreCategory;
+import com.spider.productservice.models.FakeStoreProduct;
+import com.spider.productservice.models.FakeStoreProduct;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,28 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("fakeStoreProductService") // explicitly named this bin so that can get this exact bean using @Qualifier anotation
-public class FakeStoreProductService implements ProductService{
+public class FakeStoreProductService implements ProductService<FakeStoreProduct>{
     private final RestTemplate restTemplate;
 
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    private Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStoreProductDto){
+    private FakeStoreProduct convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStoreProductDto){
 
-        Product product = new Product();
+        FakeStoreProduct product = new FakeStoreProduct();
         product.setId(fakeStoreProductDto.getId());
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setPrice(fakeStoreProductDto.getPrice());
         product.setDescription(fakeStoreProductDto.getDescription());
         product.setImage(fakeStoreProductDto.getImage());
 
-        Category category = new Category();
+        FakeStoreCategory category = new FakeStoreCategory();
         category.setTitle(fakeStoreProductDto.getCategory());
         product.setCategory(category);
         return product;
     }
-    private FakeStoreProductDto convertProductToFakeStoreDto(Product product) {
+    private FakeStoreProductDto convertProductToFakeStoreDto(FakeStoreProduct product) {
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
         fakeStoreProductDto.setTitle(product.getTitle());
         fakeStoreProductDto.setId(product.getId());
@@ -45,10 +46,10 @@ public class FakeStoreProductService implements ProductService{
         return fakeStoreProductDto;
     }
     @Override
-    public Product getProductByid(Long id) {
+    public FakeStoreProduct getProductByid(Long id) {
         //        call the FakeStore API here to get the product with given ID here.
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreProductDto.class);
-//        convert DTO to actual Product
+//        convert DTO to actual FakeStoreProduct
         if (fakeStoreProductDto != null) {
             return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
         }
@@ -57,10 +58,10 @@ public class FakeStoreProductService implements ProductService{
 
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<FakeStoreProduct> getAllProducts() {
         // To get the response in the form of array
         FakeStoreProductDto[] fakeStoreProductDtos = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDto[].class);
-        List<Product> productList = new ArrayList<>();
+        List<FakeStoreProduct> productList = new ArrayList<>();
         if (fakeStoreProductDtos != null) {
             for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
                 productList.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
@@ -71,7 +72,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public FakeStoreProduct createProduct(FakeStoreProduct product) {
         FakeStoreProductDto fakeStoreProductDto = convertProductToFakeStoreDto(product);
 
         FakeStoreProductDto responseDto = restTemplate.postForObject(
@@ -87,7 +88,7 @@ public class FakeStoreProductService implements ProductService{
 
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public FakeStoreProduct updateProduct(Long id, FakeStoreProduct product) {
         FakeStoreProductDto fakeStoreProductDto = convertProductToFakeStoreDto(product);
         HttpEntity<FakeStoreProductDto> request = new HttpEntity<>(fakeStoreProductDto);
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
@@ -101,7 +102,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product replaceProduct(Long id, Product product) {
+    public FakeStoreProduct replaceProduct(Long id, FakeStoreProduct product) {
         FakeStoreProductDto fakeStoreProductDto = convertProductToFakeStoreDto(product);
         HttpEntity<FakeStoreProductDto> request = new HttpEntity<>(fakeStoreProductDto);
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
