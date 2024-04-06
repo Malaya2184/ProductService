@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProductNotFoundException extends RuntimeException{
     private Long id;
-    private final String exceptionName = "SelfProduct Not Fount Custom Exception";
+    private final String exceptionName = "Product Not Fount Custom Exception";
 //    here this mssage will be used for setting exception dtails
     public ProductNotFoundException(String message, Long productId){
         super(message);
