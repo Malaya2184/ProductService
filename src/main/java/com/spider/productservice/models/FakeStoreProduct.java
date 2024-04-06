@@ -14,7 +14,7 @@ public class FakeStoreProduct {
     private long id;
     private String title;
     private double price;
-    private FakeStoreCategory category;
+    private FakeStoreCategory fakeStoreCategory;
     private String description;
     private String image;
 }

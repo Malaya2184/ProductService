@@ -2,8 +2,7 @@ package com.spider.productservice.controllers;
 
 import com.spider.productservice.exceptions.ProductNotFoundException;
 import com.spider.productservice.exceptions.specificexcrption.FakeStoreSpecificException;
-import com.spider.productservice.models.Product;
-import com.spider.productservice.services.ProductService;
+import com.spider.productservice.models.SelfProduct;
 import com.spider.productservice.services.SelfProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/self/products")
-public class SelfProductController implements ProductController<Product>{
+public class SelfProductController implements ProductController<SelfProduct>{
     private SelfProductService productService;
 
     public SelfProductController(@Qualifier("selfProductService") SelfProductService productService) {
@@ -22,18 +21,18 @@ public class SelfProductController implements ProductController<Product>{
     }
 
     @Override
-    public ResponseEntity<Product> getProductById(Long id) throws ProductNotFoundException {
+    public ResponseEntity<SelfProduct> getProductById(Long id) throws ProductNotFoundException {
         return new ResponseEntity<>(productService.getProductByid(id),HttpStatus.OK);
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<SelfProduct> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @Override
-    public ResponseEntity<Product> createProduct(Product product) {
-        Product response = productService.createProduct(product);
+    public ResponseEntity<SelfProduct> createProduct(SelfProduct selfProduct) {
+        SelfProduct response = productService.createProduct(selfProduct);
         if (response == null){
             return null;
         }
@@ -41,12 +40,12 @@ public class SelfProductController implements ProductController<Product>{
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public SelfProduct updateProduct(Long id, SelfProduct selfProduct) {
         return null;
     }
 
     @Override
-    public Product replaceProduct(Long id, Product product) throws FakeStoreSpecificException {
+    public SelfProduct replaceProduct(Long id, SelfProduct selfProduct) throws FakeStoreSpecificException {
         return null;
     }
 
@@ -57,7 +56,7 @@ public class SelfProductController implements ProductController<Product>{
 
 //    non interface methods
     @GetMapping("/titlelike/{phrase}")
-    public List<Product> getProductByTitleLike(@PathVariable("phrase") String phrase) {
+    public List<SelfProduct> getProductByTitleLike(@PathVariable("phrase") String phrase) {
        return productService.getProductByTitleLike(phrase);
     }
 

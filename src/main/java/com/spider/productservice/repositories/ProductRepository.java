@@ -1,6 +1,6 @@
 package com.spider.productservice.repositories;
 
-import com.spider.productservice.models.Product;
+import com.spider.productservice.models.SelfProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Long> {
+public interface ProductRepository extends JpaRepository<SelfProduct,Long> {
 //    no need to add default methods only needed custom methods
 //    default methods
-    Optional<Product> findById(Long id);
+    Optional<SelfProduct> findById(Long id);
     @Override
-    List<Product> findAll();
+    List<SelfProduct> findAll();
 
     @Override
-    Product save(Product entity);
+    SelfProduct save(SelfProduct entity);
 
-    List<Product> findByTitleContaining(String phrase);
+    List<SelfProduct> findByTitleContaining(String phrase);
 }

@@ -1,7 +1,6 @@
 package com.spider.productservice.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "products")
-public class Product extends BaseModel {
+public class SelfProduct extends BaseModel {
 //    @Id
 //    private long id;
     private String title;
     private double price;
     @ManyToOne
-    private Category category;
+    private SelfCategory selfCategory;
     private String description;
     private String image;
 }
