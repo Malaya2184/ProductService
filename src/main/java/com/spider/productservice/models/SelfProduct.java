@@ -18,7 +18,7 @@ public class SelfProduct extends BaseModel {
     private String title;
     private double price;
     @ManyToOne
-    private SelfCategory selfCategory;
+    private SelfCategory category;
     private String description;
     private String image;
 }

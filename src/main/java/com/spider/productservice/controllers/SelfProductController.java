@@ -59,5 +59,9 @@ public class SelfProductController implements ProductController<SelfProduct>{
     public List<SelfProduct> getProductByTitleLike(@PathVariable("phrase") String phrase) {
        return productService.getProductByTitleLike(phrase);
     }
-
+// upadte product through postmapping
+    @PostMapping("/upadteProductpost/{id}")
+    public ResponseEntity<SelfProduct> updateProductPost(@PathVariable("id") Long id, @RequestBody SelfProduct product){
+            return productService.updateProductPost(id,product);
+    }
 }

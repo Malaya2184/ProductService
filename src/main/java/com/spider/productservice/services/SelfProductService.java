@@ -5,8 +5,10 @@ import com.spider.productservice.models.SelfCategory;
 import com.spider.productservice.models.SelfProduct;
 import com.spider.productservice.repositories.Categoryrepository;
 import com.spider.productservice.repositories.ProductRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,10 +43,10 @@ public class SelfProductService implements ProductService<SelfProduct>{
 
     @Override
     public SelfProduct createProduct(SelfProduct selfProduct) {
-        SelfCategory selfCategory = selfProduct.getSelfCategory();
+        SelfCategory selfCategory = selfProduct.getCategory();
         if(selfCategory.getId() == null){
             SelfCategory savedSelfCategory = categoryrepository.save(selfCategory);
-            selfProduct.setSelfCategory(savedSelfCategory);
+            selfProduct.setCategory(savedSelfCategory);
         }
         return productRepository.save(selfProduct);
     }
@@ -68,6 +70,24 @@ public class SelfProductService implements ProductService<SelfProduct>{
     public List<SelfProduct> getProductByTitleLike(String phrase) {
 
     return productRepository.findByTitleContaining(phrase);
+    }
+
+    public ResponseEntity<SelfProduct> updateProductPost(Long id, SelfProduct product){
+        Optional<SelfProduct> response = productRepository.findById(id);
+        if(response.isEmpty()){
+            throw new ProductNotFoundException("Product not found for exception", id);
+        }
+        SelfProduct responseProduct = response.get();
+//        update with input product
+//        responseProduct.setId(product.getId());
+        responseProduct.setTitle(product.getTitle());
+        responseProduct.setPrice(product.getPrice());
+        responseProduct.setImage(product.getImage());
+        responseProduct.setDescription(product.getDescription());
+        responseProduct.setUpdatedAt(new Date());
+        responseProduct.setCategory(product.getCategory());
+        SelfProduct updatedResponse = productRepository.save(responseProduct);
+        return ResponseEntity.ok(updatedResponse);
     }
 
 }
