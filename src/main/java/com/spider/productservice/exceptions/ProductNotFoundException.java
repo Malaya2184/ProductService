@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ProductNotFoundException extends RuntimeException{
     private Long id;
     private final String exceptionName = "Product Not Fount Custom Exception";
-//    here this mssage will be used for setting exception dtails
+//    here this mssage will be used for setting exception details
     public ProductNotFoundException(String message, Long productId){
         super(message);
         this.id = productId;
