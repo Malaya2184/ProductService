@@ -6,6 +6,7 @@ import com.spider.productservice.models.SelfCategory;
 import com.spider.productservice.models.SelfProduct;
 import com.spider.productservice.repositories.Categoryrepository;
 import com.spider.productservice.repositories.ProductRepository;
+import com.spider.productservice.repositories.ProductRepositoryCustomQuery;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,15 @@ public class SelfProductService implements ProductService<SelfProduct>{
     private final ProductRepository productRepository;
     private final Categoryrepository categoryrepository;
 
-    public SelfProductService(ProductRepository productRepository, Categoryrepository categoryrepository) {
+    private final ProductRepositoryCustomQuery productRepositoryCustomQuery;
+
+    public SelfProductService(ProductRepository productRepository, Categoryrepository categoryrepository, ProductRepositoryCustomQuery productRepositoryCustomQuery) {
         this.productRepository = productRepository;
         this.categoryrepository = categoryrepository;
+        this.productRepositoryCustomQuery = productRepositoryCustomQuery;
     }
-//    search product by id
+
+    //    search product by id
     @Override
     public SelfProduct getProductByid(Long id) {
         Optional<SelfProduct> response = productRepository.findById(id);
@@ -92,7 +97,7 @@ public class SelfProductService implements ProductService<SelfProduct>{
 
 //    find product category from custom and native query
     public ResponseEntity<List<ProductCategoryDto>> findProductCategory(){
-        List<ProductCategoryDto> response = productRepository.findProductCategory();
+        List<ProductCategoryDto> response = productRepositoryCustomQuery.findProductCategory();
         return ResponseEntity.ok(response);
     }
 
