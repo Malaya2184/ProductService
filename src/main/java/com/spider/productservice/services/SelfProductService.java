@@ -1,5 +1,6 @@
 package com.spider.productservice.services;
 
+import com.spider.productservice.dtos.ProductCategoryDto;
 import com.spider.productservice.exceptions.ProductNotFoundException;
 import com.spider.productservice.models.SelfCategory;
 import com.spider.productservice.models.SelfProduct;
@@ -21,7 +22,7 @@ public class SelfProductService implements ProductService<SelfProduct>{
         this.productRepository = productRepository;
         this.categoryrepository = categoryrepository;
     }
-
+//    search product by id
     @Override
     public SelfProduct getProductByid(Long id) {
         Optional<SelfProduct> response = productRepository.findById(id);
@@ -31,7 +32,7 @@ public class SelfProductService implements ProductService<SelfProduct>{
 
         return response.get();
     }
-
+//    get all the products
     @Override
     public List<SelfProduct> getAllProducts() {
         List<SelfProduct> response = productRepository.findAll();
@@ -40,7 +41,7 @@ public class SelfProductService implements ProductService<SelfProduct>{
         }
         return response;
     }
-
+//    create product
     @Override
     public SelfProduct createProduct(SelfProduct selfProduct) {
         SelfCategory selfCategory = selfProduct.getCategory();
@@ -50,28 +51,27 @@ public class SelfProductService implements ProductService<SelfProduct>{
         }
         return productRepository.save(selfProduct);
     }
-
+//    update product using patch method
     @Override
     public SelfProduct updateProduct(Long id, SelfProduct selfProduct) {
         return null;
     }
-
+//    replace product with put method
     @Override
     public SelfProduct replaceProduct(Long id, SelfProduct selfProduct) {
         return null;
     }
-
+//    delete product with delete method
     @Override
     public void deleteProduct(Long id) {
 
     }
-
-//    non interface methods
+//    non interface methods = search product by like query
     public List<SelfProduct> getProductByTitleLike(String phrase) {
 
     return productRepository.findByTitleContaining(phrase);
     }
-
+//    update product using post method
     public ResponseEntity<SelfProduct> updateProductPost(Long id, SelfProduct product){
         Optional<SelfProduct> response = productRepository.findById(id);
         if(response.isEmpty()){
@@ -88,6 +88,12 @@ public class SelfProductService implements ProductService<SelfProduct>{
         responseProduct.setCategory(product.getCategory());
         SelfProduct updatedResponse = productRepository.save(responseProduct);
         return ResponseEntity.ok(updatedResponse);
+    }
+
+//    find product category from custom and native query
+    public ResponseEntity<List<ProductCategoryDto>> findProductCategory(){
+        List<ProductCategoryDto> response = productRepository.findProductCategory();
+        return ResponseEntity.ok(response);
     }
 
 }

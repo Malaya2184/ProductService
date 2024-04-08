@@ -1,5 +1,6 @@
 package com.spider.productservice.controllers;
 
+import com.spider.productservice.dtos.ProductCategoryDto;
 import com.spider.productservice.exceptions.ProductNotFoundException;
 import com.spider.productservice.exceptions.specificexcrption.FakeStoreSpecificException;
 import com.spider.productservice.models.SelfProduct;
@@ -63,5 +64,10 @@ public class SelfProductController implements ProductController<SelfProduct>{
     @PostMapping("/upadteProductpost/{id}")
     public ResponseEntity<SelfProduct> updateProductPost(@PathVariable("id") Long id, @RequestBody SelfProduct product){
             return productService.updateProductPost(id,product);
+    }
+//
+    @GetMapping("/findproductcategory")
+    public ResponseEntity<List<ProductCategoryDto>> findProductCategory(){
+        return productService.findProductCategory();
     }
 }
