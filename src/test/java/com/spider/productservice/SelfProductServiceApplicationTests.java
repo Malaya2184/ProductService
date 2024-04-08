@@ -22,21 +22,25 @@ class SelfProductServiceApplicationTests {
 
     @Test
     public void testQueries(){
-        // some random query run from productRepositoryCustomQuery
-        List<SelfProduct> products = productRepositoryCustomQuery.someRandomeQuery();
-        System.out.println(products);
+//        //native sql query to gt product details
+//        List<SelfProduct> allProducts = productRepositoryCustomQuery.findAllTheProducts();
+//        // some random query run from productRepositoryCustomQuery
+//        List<SelfProduct> products = productRepositoryCustomQuery.someRandomeQuery();
+//        System.out.println(products);
+//
+//        //  getting productsWithIdAndTitle from productRepositoryCustomQuery
+//        List<ProductWithIdAndTitle> productsWithIdAndTitle = productRepositoryCustomQuery.getProductWithIdAndTitle();
+//
+//        // getting productWithProductNameAndCategoryNameList from productRepositoryCustomQuery using projection interface
+//        List<ProductWithProductNameAndCategoryName> productWithProductNameAndCategoryNameList1 = productRepositoryCustomQuery.getProductCategory1();
+//        for (ProductWithProductNameAndCategoryName p : productWithProductNameAndCategoryNameList1){
+//            System.out.println(p.getProductName() + "  " + p.getCategoryName());
+//        }
+//
+//        //getting productWithProductNameAndCategoryNameList from productRepositoryCustomQuery using a DTO class which is impl of projection interface
+//        List<ProductCategoryProjectionImpl> productWithProductNameAndCategoryNameList2 = productRepositoryCustomQuery.getProductCategory2();
 
-        //  getting productsWithIdAndTitle from productRepositoryCustomQuery
-        List<ProductWithIdAndTitle> productsWithIdAndTitle = productRepositoryCustomQuery.getProductWithIdAndTitle();
-
-        // getting productWithProductNameAndCategoryNameList from productRepositoryCustomQuery using projection interface
-        List<ProductWithProductNameAndCategoryName> productWithProductNameAndCategoryNameList1 = productRepositoryCustomQuery.getProductCategory1();
-        for (ProductWithProductNameAndCategoryName p : productWithProductNameAndCategoryNameList1){
-            System.out.println(p.getProductName() + "  " + p.getCategoryName());
-        }
-
-        //getting productWithProductNameAndCategoryNameList from productRepositoryCustomQuery using a DTO class which is impl of projection interface
-        List<ProductCategoryProjectionImpl> productWithProductNameAndCategoryNameList2 = productRepositoryCustomQuery.getProductCategory2();
+        List<SelfProduct> productsByCatId = productRepositoryCustomQuery.findByCategory_Id(1L);
 
         System.out.println("debug");
     }
