@@ -52,7 +52,7 @@ public class SelfProductController implements ProductController<SelfProduct>{
 
     @Override
     public void deleteProduct(Long id) {
-
+        productService.deleteProduct(id);
     }
 
 //    non interface methods

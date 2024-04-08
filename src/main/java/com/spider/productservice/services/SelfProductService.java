@@ -50,10 +50,10 @@ public class SelfProductService implements ProductService<SelfProduct>{
     @Override
     public SelfProduct createProduct(SelfProduct selfProduct) {
         SelfCategory selfCategory = selfProduct.getCategory();
-        if(selfCategory.getId() == null){
-            SelfCategory savedSelfCategory = categoryrepository.save(selfCategory);
-            selfProduct.setCategory(savedSelfCategory);
-        }
+//        if(selfCategory.getId() == null){
+//            SelfCategory savedSelfCategory = categoryrepository.save(selfCategory);
+//            selfProduct.setCategory(savedSelfCategory);
+//        }
         return productRepository.save(selfProduct);
     }
 //    update product using patch method
@@ -69,7 +69,7 @@ public class SelfProductService implements ProductService<SelfProduct>{
 //    delete product with delete method
     @Override
     public void deleteProduct(Long id) {
-
+        productRepository.deleteById(id);
     }
 //    non interface methods = search product by like query
     public List<SelfProduct> getProductByTitleLike(String phrase) {

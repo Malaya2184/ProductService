@@ -1,8 +1,10 @@
 package com.spider.productservice.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 @Getter
 @Setter
@@ -15,7 +17,7 @@ public class SelfProduct extends BaseModel {
 //    private long id;
     private String title;
     private double price;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private SelfCategory category;
     private String description;
     private String image;
