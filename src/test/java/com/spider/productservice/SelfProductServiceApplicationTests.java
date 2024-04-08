@@ -1,21 +1,27 @@
 package com.spider.productservice;
 
+import com.spider.productservice.models.SelfCategory;
 import com.spider.productservice.models.SelfProduct;
+import com.spider.productservice.repositories.Categoryrepository;
 import com.spider.productservice.repositories.ProductRepository;
 import com.spider.productservice.repositories.ProductRepositoryCustomQuery;
 import com.spider.productservice.repositories.projections.ProductCategoryProjectionImpl;
 import com.spider.productservice.repositories.projections.ProductWithIdAndTitle;
 import com.spider.productservice.repositories.projections.ProductWithProductNameAndCategoryName;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class SelfProductServiceApplicationTests {
     @Autowired
     private ProductRepositoryCustomQuery productRepositoryCustomQuery;
+    @Autowired
+    private Categoryrepository categoryrepository;
     @Test
     void contextLoads() {
     }
@@ -40,8 +46,27 @@ class SelfProductServiceApplicationTests {
 //        //getting productWithProductNameAndCategoryNameList from productRepositoryCustomQuery using a DTO class which is impl of projection interface
 //        List<ProductCategoryProjectionImpl> productWithProductNameAndCategoryNameList2 = productRepositoryCustomQuery.getProductCategory2();
 
-        List<SelfProduct> productsByCatId = productRepositoryCustomQuery.findByCategory_Id(1L);
+//        List<SelfProduct> productsByCatId = productRepositoryCustomQuery.findByCategory_Id(1L);
+//
+//        System.out.println("debug");
+    }
+    @Test
+    @Transactional
+    public void testCategoryRepoQueries(){
+////        to check cascad relation of forign key of category id with products
+//        categoryrepository.deleteById(1L);
 
-        System.out.println("debug");
+//        -------------------------------------------------------------------------------------
+//        it will have no product list inside it but when we will cal get product then it will load product
+        Optional<SelfCategory> optionalResponse = categoryrepository.findById(2L);
+        SelfCategory c = optionalResponse.get();
+
+        System.out.println("debug 1");
+
+        List<SelfProduct> p = c.getProducts();
+//        System.out.println(p);
+        System.out.println("debug 2");
+
+
     }
 }
