@@ -1,0 +1,1 @@
+DROP TABLE dummmy_table;
