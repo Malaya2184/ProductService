@@ -17,6 +17,7 @@ import java.util.List;
 public class SelfCategory extends BaseModel {
 //    @Id
 //    private Long id;
+    // I have mentioned mapped by so that it will not create anathor tabl for mapping
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "category",cascade = CascadeType.REMOVE)
     List<SelfProduct> products;
     private String title;
