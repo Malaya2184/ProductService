@@ -45,7 +45,8 @@ public class TestControllerTest {
 
         List<SelfProduct> allProducts1 = testController.getAllProducts();
         double price = allProducts1.get(0).getPrice();
-        assert price == 1200L;
+//        assertEqual is more readable assertequals(Expected, actuals)
+        assertEquals(1200L,price);
     }
 
 

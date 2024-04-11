@@ -32,7 +32,7 @@ class SelfProductServiceTestMock {
         when(productRepository.findById(1L)).thenReturn(p);
         when(productRepository.findById(2L)).thenReturn(null);
 
-//        if it will retun exception
+//        if it will retun exception then service is workking perfectly
         assertThrows(ProductNotFoundException.class,
                 () -> productService.getProductByid(1L));
         assertThrows(NullPointerException.class,
