@@ -7,6 +7,7 @@ import com.spider.productservice.models.SelfProduct;
 import com.spider.productservice.repositories.Categoryrepository;
 import com.spider.productservice.repositories.ProductRepository;
 import com.spider.productservice.repositories.ProductRepositoryCustomQuery;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("selfProductService")
+@Primary
 public class SelfProductService implements ProductService<SelfProduct>{
     private final ProductRepository productRepository;
     private final Categoryrepository categoryrepository;
