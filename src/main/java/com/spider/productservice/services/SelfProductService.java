@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("selfProductService")
 public class SelfProductService implements ProductService<SelfProduct>{
     private final ProductRepository productRepository;
     private final Categoryrepository categoryrepository;
