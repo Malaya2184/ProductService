@@ -30,7 +30,11 @@ public class TestController implements ProductController<SelfProduct> {
 
     @Override
     public List<SelfProduct> getAllProducts() {
-        return productService.getAllProducts();
+// value of price modified here so that it will throw error in testcase i will disable that testcase later
+        List<SelfProduct> allProducts = productService.getAllProducts();
+        //value modified
+        allProducts.get(0).setPrice(15);
+        return allProducts;
     }
 
     @Override
