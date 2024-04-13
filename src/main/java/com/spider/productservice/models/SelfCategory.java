@@ -1,5 +1,6 @@
 package com.spider.productservice.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,6 +20,7 @@ public class SelfCategory extends BaseModel {
 //    private Long id;
     // I have mentioned mapped by so that it will not create anathor tabl for mapping
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "category",cascade = CascadeType.REMOVE)
+//    @JsonBackReference
     List<SelfProduct> products;
     private String title;
 }
