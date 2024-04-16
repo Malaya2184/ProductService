@@ -22,6 +22,8 @@ class SelfProductServiceApplicationTests {
     private ProductRepositoryCustomQuery productRepositoryCustomQuery;
     @Autowired
     private Categoryrepository categoryrepository;
+    @Autowired
+    private ProductRepository productRepository;
     @Test
     void contextLoads() {
     }
@@ -58,12 +60,16 @@ class SelfProductServiceApplicationTests {
 
 //        -------------------------------------------------------------------------------------
 //        it will have no product list inside it but when we will cal get product then it will load product
-        Optional<SelfCategory> optionalResponse = categoryrepository.findById(2L);
-        SelfCategory c = optionalResponse.get();
+//        Optional<SelfProduct> optioanlProduct = productRepositoryCustomQuery.findById(2L);
+//        Optional<SelfCategory> optionalCategory = categoryrepository.findById(2L);
+//        Optional<SelfProduct> prod = productRepositoryCustomQuery.findById(1L);
+        Optional<SelfProduct> byId = productRepository.findById(4L);
+//        SelfCategory c = optionalResponse.get();
+//        List<SelfProduct> p = c.getProducts();
 
         System.out.println("debug 1");
 
-        List<SelfProduct> p = c.getProducts();
+
 //        System.out.println(p);
         System.out.println("debug 2");
 

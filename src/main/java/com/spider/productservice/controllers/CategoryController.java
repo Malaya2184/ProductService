@@ -8,17 +8,17 @@ import java.util.List;
 @RestController
 public interface CategoryController <T>{
     @GetMapping("/{id}")
-    T getCategoryById(@PathVariable("id") Long id);
+    ResponseEntity<T> getCategoryById(@PathVariable("id") Long id);
     @GetMapping
     ResponseEntity<List<T>> getAllCategories();
     @PostMapping
-    T createNewCategory(@RequestBody T category);
+    ResponseEntity<T> createNewCategory(@RequestBody T category);
     @PostMapping
-    List<T> createNewCategories(@RequestBody List<T> categoryList);
+    ResponseEntity<List<T>> createNewCategories(@RequestBody List<T> categoryList);
     @PatchMapping
-    T updateCategory(@RequestBody T category);
+    ResponseEntity<T> updateCategory(@RequestBody T category);
     @PutMapping
-    T replacecategory(@RequestBody T category);
+    ResponseEntity<T> replacecategory(@RequestBody T category);
     @DeleteMapping("/{id}")
     void dleteCategory(@PathVariable("id") Long id);
 }
