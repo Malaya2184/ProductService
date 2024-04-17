@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface Categoryrepository extends JpaRepository<SelfCategory,Long> {
+public interface CategoryRepository extends JpaRepository<SelfCategory,Long> {
     SelfCategory save(SelfCategory selfCategory);
     void deleteById(Long id);
 //    lazy fetching of category and no product fetching

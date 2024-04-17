@@ -1,19 +1,14 @@
 package com.spider.productservice;
 
-import com.spider.productservice.models.SelfCategory;
 import com.spider.productservice.models.SelfProduct;
-import com.spider.productservice.repositories.Categoryrepository;
+import com.spider.productservice.repositories.CategoryRepository;
 import com.spider.productservice.repositories.ProductRepository;
 import com.spider.productservice.repositories.ProductRepositoryCustomQuery;
-import com.spider.productservice.repositories.projections.ProductCategoryProjectionImpl;
-import com.spider.productservice.repositories.projections.ProductWithIdAndTitle;
-import com.spider.productservice.repositories.projections.ProductWithProductNameAndCategoryName;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -21,7 +16,7 @@ class SelfProductServiceApplicationTests {
     @Autowired
     private ProductRepositoryCustomQuery productRepositoryCustomQuery;
     @Autowired
-    private Categoryrepository categoryrepository;
+    private CategoryRepository categoryrepository;
     @Autowired
     private ProductRepository productRepository;
     @Test

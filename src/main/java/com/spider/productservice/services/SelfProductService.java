@@ -4,7 +4,7 @@ import com.spider.productservice.dtos.ProductCategoryDto;
 import com.spider.productservice.exceptions.ProductNotFoundException;
 import com.spider.productservice.models.SelfCategory;
 import com.spider.productservice.models.SelfProduct;
-import com.spider.productservice.repositories.Categoryrepository;
+import com.spider.productservice.repositories.CategoryRepository;
 import com.spider.productservice.repositories.ProductRepository;
 import com.spider.productservice.repositories.ProductRepositoryCustomQuery;
 import org.springframework.context.annotation.Primary;
@@ -19,11 +19,11 @@ import java.util.Optional;
 @Primary
 public class SelfProductService implements ProductService<SelfProduct>{
     private final ProductRepository productRepository;
-    private final Categoryrepository categoryrepository;
+    private final CategoryRepository categoryrepository;
 
     private final ProductRepositoryCustomQuery productRepositoryCustomQuery;
 
-    public SelfProductService(ProductRepository productRepository, Categoryrepository categoryrepository, ProductRepositoryCustomQuery productRepositoryCustomQuery) {
+    public SelfProductService(ProductRepository productRepository, CategoryRepository categoryrepository, ProductRepositoryCustomQuery productRepositoryCustomQuery) {
         this.productRepository = productRepository;
         this.categoryrepository = categoryrepository;
         this.productRepositoryCustomQuery = productRepositoryCustomQuery;

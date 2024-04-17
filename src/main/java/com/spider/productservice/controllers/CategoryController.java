@@ -20,5 +20,5 @@ public interface CategoryController <T>{
     @PutMapping
     ResponseEntity<T> replacecategory(@RequestBody T category);
     @DeleteMapping("/{id}")
-    void dleteCategory(@PathVariable("id") Long id);
+    void deleteCategory(@PathVariable("id") Long id);
 }

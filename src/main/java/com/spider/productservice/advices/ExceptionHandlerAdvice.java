@@ -1,7 +1,9 @@
 package com.spider.productservice.advices;
 
+import com.spider.productservice.dtos.exceptionDto.CategoryNotFoundDto;
 import com.spider.productservice.dtos.exceptionDto.ExceptionDto;
 import com.spider.productservice.dtos.exceptionDto.ProductNotFoundDto;
+import com.spider.productservice.exceptions.CategoryNotFoundException;
 import com.spider.productservice.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +29,14 @@ public class ExceptionHandlerAdvice {
         productNotFoundDto.setExceptionDetails(e.getMessage());
         productNotFoundDto.setExceptionName(e.getExceptionName());
         return new ResponseEntity<>(productNotFoundDto, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<CategoryNotFoundDto> handleCategoryNotFoundException(CategoryNotFoundException e){
+        CategoryNotFoundDto categoryNotFoundDto = new CategoryNotFoundDto();
+        categoryNotFoundDto.setExceptionName(e.getExceptionName());
+        categoryNotFoundDto.setExceptionDetails(e.getMessage());
+        categoryNotFoundDto.setId(e.getId());
+        return new ResponseEntity<>(categoryNotFoundDto,HttpStatus.NOT_FOUND);
     }
 }
