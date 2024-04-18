@@ -86,13 +86,11 @@ public class SelfProductService implements ProductService<SelfProduct>{
         }
         SelfProduct responseProduct = response.get();
 //        update with input product
-//        responseProduct.setId(product.getId());
         responseProduct.setTitle(product.getTitle());
         responseProduct.setPrice(product.getPrice());
         responseProduct.setImage(product.getImage());
         responseProduct.setDescription(product.getDescription());
         responseProduct.setUpdatedAt(new Date());
-        responseProduct.setCategory(product.getCategory());
         SelfProduct updatedResponse = productRepository.save(responseProduct);
         return ResponseEntity.ok(updatedResponse);
     }
