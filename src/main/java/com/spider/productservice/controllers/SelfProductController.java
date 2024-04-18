@@ -42,12 +42,13 @@ public class SelfProductController implements ProductController<SelfProduct>{
 
     @Override
     public SelfProduct updateProduct(Long id, SelfProduct selfProduct) {
-        return null;
+
+        return productService.updateProduct(id,selfProduct);
     }
 
     @Override
     public SelfProduct replaceProduct(Long id, SelfProduct selfProduct) throws FakeStoreSpecificException {
-        return null;
+        return productService.replaceProduct(id,selfProduct);
     }
 
     @Override
