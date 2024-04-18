@@ -10,8 +10,8 @@ public interface CategoryService<T> {
     ResponseEntity<List<T>> getAllCategories();
     ResponseEntity<T> createNewCategory(T category);
     ResponseEntity<List<T>> createNewCategories(List<T> categoryList);
-    ResponseEntity<T> updateCategory(T category);
-    ResponseEntity<T> replacecategory(T category);
+    ResponseEntity<T> updateCategory(Long id,T category);
+    ResponseEntity<T> replacecategory(Long id,T category);
     void deleteCategory(Long id);
 
 }
