@@ -51,6 +51,6 @@ public class SelfCategoryController implements CategoryController<SelfCategory>{
 
     @Override
     public void deleteCategory(Long id) {
-
+        categoryService.deleteCategory(id);
     }
 }
