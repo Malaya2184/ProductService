@@ -52,10 +52,16 @@ public class SelfProductService implements ProductService<SelfProduct>{
     @Override
     public SelfProduct createProduct(SelfProduct selfProduct) {
         SelfCategory selfCategory = selfProduct.getCategory();
+//        use this if ther is no cascading
 //        if(selfCategory.getId() == null){
 //            SelfCategory savedSelfCategory = categoryrepository.save(selfCategory);
 //            selfProduct.setCategory(savedSelfCategory);
 //        }
+//        if we passed alreay existed category for a new product
+        if(selfCategory.getId() != null){
+            Optional<SelfCategory> existeCategory = categoryrepository.findById(selfCategory.getId());
+            selfProduct.setCategory(existeCategory.get());
+        }
         return productRepository.save(selfProduct);
     }
 //    update product using patch method

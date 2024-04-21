@@ -80,6 +80,6 @@ public class SelfCategoryService implements CategoryService<SelfCategory>{
 
     @Override
     public void deleteCategory(Long id) {
-
+            categoryrepository.deleteById(id);
     }
 }
