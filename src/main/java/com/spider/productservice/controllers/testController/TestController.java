@@ -1,7 +1,10 @@
 package com.spider.productservice.controllers.testController;
 
+import com.spider.productservice.commons.AuthenticationCommons;
 import com.spider.productservice.controllers.ProductController;
 import com.spider.productservice.dtos.ProductCategoryDto;
+import com.spider.productservice.dtos.userservice_dtos.TokenDto;
+import com.spider.productservice.dtos.userservice_dtos.UserDto;
 import com.spider.productservice.exceptions.ProductNotFoundException;
 import com.spider.productservice.exceptions.specificexcrption.FakeStoreSpecificException;
 import com.spider.productservice.models.SelfProduct;
@@ -18,9 +21,11 @@ import java.util.List;
 @RequestMapping("/testController/products")
 public class TestController implements ProductController<SelfProduct> {
     private SelfProductService productService;
+    private AuthenticationCommons authenticationCommons;
 
-    public TestController(@Qualifier("selfProductService") SelfProductService productService) {
+    public TestController(@Qualifier("selfProductService") SelfProductService productService, AuthenticationCommons authenticationCommons) {
         this.productService = productService;
+        this.authenticationCommons = authenticationCommons;
     }
 
     @Override
@@ -75,5 +80,12 @@ public class TestController implements ProductController<SelfProduct> {
     @GetMapping("/findproductcategory")
     public ResponseEntity<List<ProductCategoryDto>> findProductCategory(){
         return productService.findProductCategory();
+    }
+
+    @GetMapping("/getallauthorisedproducts")
+    public ResponseEntity<List<SelfProduct>> getAllAuthorisedProduct(@RequestBody TokenDto token){
+        UserDto responseUserDto = authenticationCommons.validateToken(token.getValue());
+        List<SelfProduct> allProducts = productService.getAllProducts();
+        return new ResponseEntity<>(allProducts,HttpStatus.OK);
     }
 }
