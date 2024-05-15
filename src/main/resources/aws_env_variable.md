@@ -1,0 +1,1 @@
+PRODUCT_SERVICE_DATABASE_URL= jdbc:mysql://productservice.cpy2m4wkehge.ap-south-1.rds.amazonaws.com:3306/productservice;PRODUCT_SERVICE_USERNAME= admin;PRODUCT_SERVICE_PASSWORD= Merimaa1#

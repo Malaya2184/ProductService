@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#aws related things
+../productService//src/main/resources/aws_env_variable.md
