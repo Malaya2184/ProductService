@@ -6,6 +6,9 @@ import com.spider.productservice.exceptions.specificexcrption.FakeStoreSpecificE
 import com.spider.productservice.models.SelfProduct;
 import com.spider.productservice.services.SelfProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,5 +73,14 @@ public class SelfProductController implements ProductController<SelfProduct>{
     @GetMapping("/findproductcategory")
     public ResponseEntity<List<ProductCategoryDto>> findProductCategory(){
         return productService.findProductCategory();
+    }
+
+
+//    implementing pagination for products
+
+    @GetMapping("/findPaginatedProducts/")
+    public Page<SelfProduct> findPaginatedProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize){
+        Pageable pageRequest = PageRequest.of(pageNumber,pageSize);
+        return productService.findPaginatedProducts(pageRequest);
     }
 }

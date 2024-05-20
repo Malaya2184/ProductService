@@ -8,6 +8,8 @@ import com.spider.productservice.repositories.CategoryRepository;
 import com.spider.productservice.repositories.ProductRepository;
 import com.spider.productservice.repositories.ProductRepositoryCustomQuery;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -106,5 +108,10 @@ public class SelfProductService implements ProductService<SelfProduct>{
         List<ProductCategoryDto> response = productRepositoryCustomQuery.findProductCategory();
         return ResponseEntity.ok(response);
     }
+
+//    pagination implemented service
+public Page<SelfProduct> findPaginatedProducts(Pageable pageable){
+    return productRepository.findAll(pageable);
+}
 
 }
