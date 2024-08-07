@@ -52,7 +52,7 @@ public class FakeStoreProductService implements ProductService<FakeStoreProduct>
 
     @Override
     public FakeStoreProduct getProductByid(Long id) {
-
+        System.out.println("This port server called ");
 //        First search in the redis if cachehit then return the object or if cache miss stor thatt obj in  redis
         FakeStoreProduct fakeStoreProduct = (FakeStoreProduct) redisTemplate.opsForHash().get("FAKE_STORE_PRODUCT", "FAKE_STORE_PRODUCT_" + id);
         if (fakeStoreProduct != null) {
